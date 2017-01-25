@@ -1,3 +1,5 @@
+import time
+import random
 '''
 Reads data from input file
 Returns list of list of ints
@@ -34,7 +36,7 @@ Parameters:
 A - an array of ints
 outFile - file object in write mode
 '''
-def Enum_Max_Subarray(A, outFile):
+def Enum_Max_Subarray(A):
     maximum = A[0]
     subArrayStart = 0
     subArrayEnd = 0
@@ -48,7 +50,7 @@ def Enum_Max_Subarray(A, outFile):
                     maximum = currentTotal
                     subArrayStart = i
                     subArrayEnd = j
-    writeData(outFile, A, subArrayStart, subArrayEnd, maximum)
+    return [A, subArrayStart, subArrayEnd, maximum]
 
 '''
 Better enumerative version of Max_Subarray
@@ -57,7 +59,7 @@ Parameters:
 A - an array of ints
 outFile - file object in write mode
 '''
-def Better_Enum_Max_Subarray(A, outFile):
+def Better_Enum_Max_Subarray(A):
     maximum = A[0]
     subArrayStart = 0
     subArrayEnd = 0
@@ -70,13 +72,73 @@ def Better_Enum_Max_Subarray(A, outFile):
                 maximum = currentTotal
                 subArrayStart = i
                 subArrayEnd = j
-    writeData(outFile, A, subArrayStart, subArrayEnd, maximum)
+    return [A, subArrayStart, subArrayEnd, maximum]
 
-    
-    
-data = getInputData("MSS_TestProblems.txt")
-outFile = open("out.txt", 'w') #open outFile here so it overwrites existing file only once
-for i in range(len(data)):
-    Enum_Max_Subarray(data[i], outFile)  # call whichever function here
-outFile.close()
+'''
+get time data from function with various input sizes
+parameters:
+functionToCall: function of algorithm you want to test
+inputSizes: list of input sizes
+'''
+def timeFunction(functionToCall, inputSizes):
+    testLists = []
+    currList = []
+    for i in inputSizes:
+        for j in range(i):
+            currList.append(random.randint(-1000, 1000))
+        testLists.append(currList)
+    timeList = []
+    for i in range(len(testLists)):
+        startTime = time.time()
+        functionToCall(testLists[i])
+        timeList.append(time.time() - startTime)
+    return timeList
+
+'''
+print time data
+Parameters:
+function - name of function you want to call
+inputSizes - list of inputSizes to test
+'''
+def getExperimentalData(function, inputSizes):
+    timeList = timeFunction(function, inputSizes)
+    print(str(function))
+    for x in range(len(timeList)):
+        print("n = " + str(enumInputSizes[x]) + ": " + str(timeList[x]))
+
+'''
+creates output file
+parameters:
+function - function of algorithm you want to call
+inFilename - string of filename for input
+outFilename - string of filename for output
+'''
+def createOutputFile(function, inFilename, outFilename):
+    outFile = open(outFilename, 'w') #open outFile here so it overwrites existing file only once
+    data = getInputData(inFilename)
+    params = []
+    for i in range(len(data)):
+        params = function(data[i])
+        #parameters for each function should be (outfile, originalArray, startPos, endPos, maximum)
+        writeData(outFile, params[0], params[1], params[2], params[3])
+    outFile.close()
+
+'''    
+enumInputSizes = [50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550]
+betterEnumInputSizes = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000]
+'''
+enumInputSizes = [50, 100, 150, 200, 250]
+betterEnumInputSizes = [100, 200, 300, 400, 500]
+
+#Gets experimental data for various n values for both enum functions
+getExperimentalData(Enum_Max_Subarray, enumInputSizes)
+getExperimentalData(Better_Enum_Max_Subarray, betterEnumInputSizes)
+
+#takes in input file and writes results in specified file
+createOutputFile(Enum_Max_Subarray, 'MSS_TestProblems.txt', 'outEnum.txt')
+createOutputFile(Better_Enum_Max_Subarray, 'MSS_TestProblems.txt', 'outBE.txt')
+
+
+
+
 

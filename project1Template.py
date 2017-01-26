@@ -108,14 +108,14 @@ def Divide_and_Conquer(A, low, high):
         (leftSum, leftArray) = Divide_and_Conquer(A, low, mid)
         (rightSum, rightArray) = Divide_and_Conquer(A, mid + 1, high)
         
-        maxSum = max(leftSum, rightSum, middleSum
+        maxSum = max(leftSum, rightSum, middleSum)
         
         if(maxSum == leftSum):
-                     return (leftArray, maxSum)
+                     return (maxSum, leftArray)
         elif(maxSum == rightSum)
-                     return (rightArray, maxSum)
+                     return (maxSum, rightArray)
         elif(maxSum == middleSum):
-                     return (A[maxLeft:maxRight + 1], maxSum)
+                     return (maxSum, A[maxLeft:maxRight + 1])
 
 '''
 get time data from function with various input sizes

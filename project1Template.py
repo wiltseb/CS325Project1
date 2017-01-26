@@ -76,6 +76,47 @@ def Better_Enum_Max_Subarray(A):
                 subArrayEnd = j
     return [A, subArrayStart, subArrayEnd, maximum]
 
+def DCHelper(A):
+    Divide_and_Conquer(A, 0, len(A) - 1)
+
+def Divide_and_Conquer(A, low, high):
+    if (low - high) == 0:
+        return (A[low], A[low])
+    else :
+        #low = 0
+        mid = (low + high) / 2
+        #high = len(A)
+        maxLeft = mid
+        maxRight = mid + 1
+        leftSum = 0
+        rightSum = 0
+        maxSum = 0
+        for i in range(mid, low):
+            maxSum = maxSum + A[i]
+            if maxSum > leftSum:
+                leftSum = maxSum
+                maxLeft = i
+        maxSum = 0
+        
+        for j in range(mid + 1, high):
+            maxSum = maxSum + A[j]
+            if maxSum > rightSum:
+                rightSum = maxSum
+                maxRight = j
+        middleSum = leftSum + rightSum
+        
+        (leftSum, leftArray) = Divide_and_Conquer(A, low, mid)
+        (rightSum, rightArray) = Divide_and_Conquer(A, mid + 1, high)
+        
+        maxSum = max(leftSum, rightSum, middleSum
+        
+        if(maxSum == leftSum):
+                     return (leftArray, maxSum)
+        elif(maxSum == rightSum)
+                     return (rightArray, maxSum)
+        elif(maxSum == middleSum):
+                     return (A[maxLeft:maxRight + 1], maxSum)
+
 '''
 get time data from function with various input sizes
 parameters:

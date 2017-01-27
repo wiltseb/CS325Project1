@@ -120,7 +120,7 @@ def Divide_and_Conquer(A, low, high):
 '''
     
     if (high == low):
-        return(low, high, A[low]
+        return[A, low, high, A[low]]
     else 
                mid = floor(low + high) / 2
     (leftLow, leftHigh, leftSum) = Divide_and_Conquer(A, low, mid)
@@ -128,11 +128,11 @@ def Divide_and_Conquer(A, low, high):
     (crossLow, crossHigh, crossSum) = maxCrossing(A, low, mid, high)
                
     if leftSum >= rightSum and leftSum >= crossSum:
-               return(A, leftLow, leftHigh, leftSum)
+               return[A, leftLow, leftHigh, leftSum]
     else if rightSum >= leftSum and rightSum >= crossSum:
-               return(A, rightLow, rightHigh, rightSum)
+               return[A, rightLow, rightHigh, rightSum]
     else 
-               return(A, crossLow, crossHigh, crossSum)
+               return[A, crossLow, crossHigh, crossSum]
              
 def maxCrossing(A, low, mid, high):
      leftSum = float("-inf")

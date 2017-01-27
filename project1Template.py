@@ -25,8 +25,8 @@ endPos - end position of subArray
 total - sum of maximum subArray
 '''
 def writeData(outFile, A, startPos, endPos, total):
-    outFile.write(" ".join(str(x) for x in A) + '\n')
-    outFile.write(" ".join(str(A[x]) for x in range(startPos, endPos+1)) + '\n')
+    outFile.write(' '.join(str(x) for x in A) + '\n')
+    outFile.write(' '.join(str(A[x]) for x in range(startPos, endPos+1)) + '\n')
     outFile.write(str(total) + '\n\n')
     
 '''
@@ -112,10 +112,29 @@ def Divide_and_Conquer(A, low, high):
         
         if(maxSum == leftSum):
                      return (maxSum, leftArray)
-        elif(maxSum == rightSum)
+        elif(maxSum == rightSum):
                      return (maxSum, rightArray)
         elif(maxSum == middleSum):
                      return (maxSum, A[maxLeft:maxRight + 1])
+        
+'''
+Linear algorithm to solve the max subarray problem.
+Parameters: 
+A - Array to search for maximum subarray from.
+Returns:
+Maximum subarray sum, start and end positions of maximum subarray.
+'''
+def Linear_Max_Subarray(A):
+    maxSum = maxSoFar = A[0]
+    subArrayStart = subArrayEnd = 0
+    for i in range(1, len(A)):
+        maxSoFar = max(A[i], maxSoFar + A[i])
+        if maxSoFar == A[i]:
+            subArrayStart = i
+        maxSum = max(maxSum, maxSoFar)
+        if maxSum == maxSoFar:
+            subArrayEnd = i
+    return [A, subArrayStart, subArrayEnd, maxSum]
 
 '''
 get time data from function with various input sizes
@@ -148,7 +167,7 @@ def getExperimentalData(function, inputSizes):
     timeList = timeFunction(function, inputSizes)
     print(str(function))
     for x in range(len(timeList)):
-        print("n = " + str(inputSizes[x]) + ": " + str(timeList[x]))
+        print('n = ' + str(inputSizes[x]) + ': ' + str(timeList[x]))
 
 '''
 creates output file
@@ -194,10 +213,11 @@ betterEnumInputSizes = [100, 200, 300, 400, 500]
 getExperimentalData(Enum_Max_Subarray, enumInputSizes)
 getExperimentalData(Better_Enum_Max_Subarray, betterEnumInputSizes)
 
+
 #takes in input file and writes results in specified file -- see note above about functions to pass in
 createOutputFile(Enum_Max_Subarray, 'MSS_TestProblems.txt', 'outEnum.txt')
 createOutputFile(Better_Enum_Max_Subarray, 'MSS_TestProblems.txt', 'outBE.txt')
-
+createOutputFile(Linear_Max_Subarray, 'MSS_TestProblems.txt', 'outLin.txt')
 
 
 

@@ -1,5 +1,6 @@
 import time
 import random
+from math import floor
 '''
 Reads data from input file
 Returns list of list of ints
@@ -80,7 +81,7 @@ def DCHelper(A):
     Divide_and_Conquer(A, 0, len(A) - 1)
 
 def Divide_and_Conquer(A, low, high):
-    if (low - high) == 0:
+    '''if (low - high) == 0:
         return (A[low], A[low])
     else :
         #low = 0
@@ -116,6 +117,40 @@ def Divide_and_Conquer(A, low, high):
                      return (maxSum, rightArray)
         elif(maxSum == middleSum):
                      return (maxSum, A[maxLeft:maxRight + 1])
+'''
+    
+    if (high == low):
+        return(low, high, A[low]
+    else 
+               mid = floor(low + high) / 2
+    (leftLow, leftHigh, leftSum) = Divide_and_Conquer(A, low, mid)
+    (rightLow, rigthHigh, rightSum) = Divide_and_Conquer(A, mid + 1, high)
+    (crossLow, crossHigh, crossSum) = maxCrossing(A, low, mid, high)
+               
+    if leftSum >= rightSum and leftSum >= crossSum:
+               return(leftLow, leftHigh, leftSum)
+    else if rightSum >= leftSum and rightSum >= crossSum:
+               return(rightLow, rightHigh, rightSum)
+    else 
+               return(crossLow, crossHigh, crossSum)
+             
+def maxCrossing(A, low, mid, high):
+     leftSum = float("-inf")
+     sum = 0
+     for i in range(mid, low - 1, -1):
+        sum = sum + A[i]
+        if sum > leftSum
+        leftSum = sum
+        maxLeft = i
+     rightSum = float("-inf")
+     sum = 0
+     for j in range(mid + 1, high):
+        sum = sum + A[j]
+        if sum > rightSum
+        rightSum = sum
+        maxRight = i
+               
+     return(maxLeft, maxRight, leftSum + rightSum)
 
 '''
 get time data from function with various input sizes

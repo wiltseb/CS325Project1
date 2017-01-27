@@ -128,11 +128,11 @@ def Divide_and_Conquer(A, low, high):
     (crossLow, crossHigh, crossSum) = maxCrossing(A, low, mid, high)
                
     if leftSum >= rightSum and leftSum >= crossSum:
-               return(leftLow, leftHigh, leftSum)
+               return(A, leftLow, leftHigh, leftSum)
     else if rightSum >= leftSum and rightSum >= crossSum:
-               return(rightLow, rightHigh, rightSum)
+               return(A, rightLow, rightHigh, rightSum)
     else 
-               return(crossLow, crossHigh, crossSum)
+               return(A, crossLow, crossHigh, crossSum)
              
 def maxCrossing(A, low, mid, high):
      leftSum = float("-inf")

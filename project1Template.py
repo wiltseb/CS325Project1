@@ -78,7 +78,7 @@ def Better_Enum_Max_Subarray(A):
     return [A, subArrayStart, subArrayEnd, maximum]
 
 def DCHelper(A):
-    Divide_and_Conquer(A, 0, len(A) - 1)
+    return Divide_and_Conquer(A, 0, len(A) - 1)
 
 def Divide_and_Conquer(A, low, high):
     '''if (low - high) == 0:
@@ -118,39 +118,46 @@ def Divide_and_Conquer(A, low, high):
         elif(maxSum == middleSum):
                      return (maxSum, A[maxLeft:maxRight + 1])
 '''
-    
-    if (high == low):
+    #rightHigh = 0
+    #leftHigh = 0
+    #leftSum = 0
+    #RightSum = 0
+    #crossLow = 0
+    #crossHigh = 0
+    if high == low:
         return[A, low, high, A[low]]
-    else 
-               mid = floor(low + high) / 2
-    (leftLow, leftHigh, leftSum) = Divide_and_Conquer(A, low, mid)
-    (rightLow, rigthHigh, rightSum) = Divide_and_Conquer(A, mid + 1, high)
-    (crossLow, crossHigh, crossSum) = maxCrossing(A, low, mid, high)
+    else: 
+	mid = ((low + high) / 2)
+    	(A, leftLow, leftHigh, leftSum) = Divide_and_Conquer(A, low, mid)
+    	(A, rightLow, rightHigh, rightSum) = Divide_and_Conquer(A, mid + 1, high)
+    	(A, crossLow, crossHigh, crossSum) = maxCrossing(A, low, mid, high)
                
-    if leftSum >= rightSum and leftSum >= crossSum:
+    	if (leftSum >= rightSum and leftSum >= crossSum):
                return[A, leftLow, leftHigh, leftSum]
-    else if rightSum >= leftSum and rightSum >= crossSum:
+    	elif (rightSum >= leftSum and rightSum >= crossSum):
                return[A, rightLow, rightHigh, rightSum]
-    else 
+   	else: 
                return[A, crossLow, crossHigh, crossSum]
              
 def maxCrossing(A, low, mid, high):
-     leftSum = float("-inf")
-     sum = 0
-     for i in range(mid, low - 1, -1):
-        sum = sum + A[i]
-        if sum > leftSum
-        leftSum = sum
-        maxLeft = i
-     rightSum = float("-inf")
-     sum = 0
-     for j in range(mid + 1, high):
-        sum = sum + A[j]
-        if sum > rightSum
-        rightSum = sum
-        maxRight = i
+	leftSum = float("-inf")
+     	sum = 0
+	maxRight = 0
+	maxLeft = 0
+     	for i in range(mid, low - 1, -1):
+        	sum = sum + A[i]
+        	if sum > leftSum:
+        		leftSum = sum
+        		maxLeft = i
+     	rightSum = float("-inf")
+     	sum = 0
+     	for j in range(mid + 1, high + 1):
+        	sum = sum + A[j]
+        	if sum > rightSum:
+        		rightSum = sum
+        		maxRight = j
                
-     return(maxLeft, maxRight, leftSum + rightSum)
+	return(A, maxLeft, maxRight, leftSum + rightSum)
 
 '''
 get time data from function with various input sizes
@@ -226,12 +233,13 @@ betterEnumInputSizes = [100, 200, 300, 400, 500]
 '''
 
 #Gets experimental data for various n values for both enum functions
-getExperimentalData(Enum_Max_Subarray, enumInputSizes)
-getExperimentalData(Better_Enum_Max_Subarray, betterEnumInputSizes)
+#getExperimentalData(Enum_Max_Subarray, enumInputSizes)
+#getExperimentalData(Better_Enum_Max_Subarray, betterEnumInputSizes)
 
 #takes in input file and writes results in specified file -- see note above about functions to pass in
 createOutputFile(Enum_Max_Subarray, 'MSS_TestProblems.txt', 'outEnum.txt')
 createOutputFile(Better_Enum_Max_Subarray, 'MSS_TestProblems.txt', 'outBE.txt')
+createOutputFile(DCHelper, 'MSS_TestProblems.txt', 'outDC.txt')
 
 
 

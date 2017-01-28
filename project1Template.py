@@ -26,8 +26,8 @@ endPos - end position of subArray
 total - sum of maximum subArray
 '''
 def writeData(outFile, A, startPos, endPos, total):
-    outFile.write(" ".join(str(x) for x in A) + '\n')
-    outFile.write(" ".join(str(A[x]) for x in range(startPos, endPos+1)) + '\n')
+    outFile.write(' '.join(str(x) for x in A) + '\n')
+    outFile.write(' '.join(str(A[x]) for x in range(startPos, endPos+1)) + '\n')
     outFile.write(str(total) + '\n\n')
     
 '''
@@ -113,10 +113,11 @@ def Divide_and_Conquer(A, low, high):
         
         if(maxSum == leftSum):
                      return (maxSum, leftArray)
-        elif(maxSum == rightSum)
+        elif(maxSum == rightSum):
                      return (maxSum, rightArray)
         elif(maxSum == middleSum):
                      return (maxSum, A[maxLeft:maxRight + 1])
+
 '''
     #rightHigh = 0
     #leftHigh = 0
@@ -159,6 +160,27 @@ def maxCrossing(A, low, mid, high):
                
     return(A, maxLeft, maxRight, leftSum + rightSum)
 
+        
+'''
+Linear algorithm to solve the max subarray problem.
+Parameters: 
+A - Array to search for maximum subarray from.
+Returns:
+Maximum subarray sum, start and end positions of maximum subarray.
+'''
+def Linear_Max_Subarray(A):
+    maxSum = maxSoFar = A[0]
+    subArrayStart = subArrayEnd = 0
+    for i in range(1, len(A)):
+        maxSoFar = max(A[i], maxSoFar + A[i])
+        if maxSoFar == A[i]:
+            subArrayStart = i
+        maxSum = max(maxSum, maxSoFar)
+        if maxSum == maxSoFar:
+            subArrayEnd = i
+    return [A, subArrayStart, subArrayEnd, maxSum]
+
+
 '''
 get time data from function with various input sizes
 parameters:
@@ -200,7 +222,7 @@ def getExperimentalData(function, inputSizes):
     timeList = timeFunction(function, inputSizes)
     print(str(function))
     for x in range(len(timeList)):
-        print("n = " + str(inputSizes[x]) + ": " + str(timeList[x]))
+        print('n = ' + str(inputSizes[x]) + ': ' + str(timeList[x]))
 
 '''
 creates output file
@@ -213,7 +235,7 @@ def createOutputFile(inFilename, outFilename):
     outFile = open(outFilename, 'w') #open outFile here so it overwrites existing file only once
     data = getInputData(inFilename)
     params = []
-    functionsList = [Enum_Max_Subarray, Better_Enum_Max_Subarray, DCHelper] ##NEED TO ADD LINEAR FUNCTION
+    functionsList = [Enum_Max_Subarray, Better_Enum_Max_Subarray, DCHelper,Linear_Max_Subarray] 
     functionNames = ["Enumerative", "Better Enumerative", "Divide and Conquer", "Linear"]
     for i in range(len(functionsList)):
         outFile.write("-------------" + functionNames[i] + "-------------\n\n")
@@ -232,16 +254,18 @@ def createOutputFile(inFilename, outFilename):
 enumInputSizes = [500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400]
 betterEnumInputSizes = [7000, 9000, 11000, 13000, 15000, 17000, 19000, 21000, 23000, 25000]
 
-#Gets experimental data for various n values for both enum functions
-#getExperimentalData(Enum_Max_Subarray, enumInputSizes)
-getExperimentalData(Better_Enum_Max_Subarray, betterEnumInputSizes)
+#Gets experimental data for various n value
+#getExperimentalData(Better_Enum_Max_Subarray, betterEnumInputSizes)
 
 
 ''' THE LINE BELOW SHOULD BE THE ONLY LINE WE NEED FOR OUR SUBMISSION -- IT SHOULD HAVE
 MSS_Problems.txt as inputFile and MSS_Results.txt as outputFile'''
 
 #takes in input file and writes results in specified file -- see note above about functions to pass in
-#createOutputFile('MSS_Problems.txt', 'MSS_Results.txt')
+
+createOutputFile('MSS_Problems.txt', 'MSS_Results.txt')
+
+
 
 
 

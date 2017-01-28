@@ -118,6 +118,7 @@ def Divide_and_Conquer(A, low, high):
         elif(maxSum == middleSum):
                      return (maxSum, A[maxLeft:maxRight + 1])
 <<<<<<< HEAD
+<<<<<<< HEAD
 '''
     #rightHigh = 0
     #leftHigh = 0
@@ -255,6 +256,7 @@ betterEnumInputSizes = [100, 200, 300, 400, 500]
 #Gets experimental data for various n values for both enum functions
 #getExperimentalData(Enum_Max_Subarray, enumInputSizes)
 #getExperimentalData(Better_Enum_Max_Subarray, betterEnumInputSizes)
+
 
 
 #takes in input file and writes results in specified file -- see note above about functions to pass in
